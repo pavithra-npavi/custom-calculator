@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Calculator</title>
+    <style>
+        * {
+            background-color: rgb(224, 222, 222);
+        }
+
+        .calculator_container {
+            width: 600px;
+            margin: auto;
+            /* background: linear-gradient(#e66465, #9198e5,#e66465 ); */
+            border-radius: 10px;
+            background-image: linear-gradient(to right top, #3ff607, #1d30da, #25a7be, #28a49e, #8b298b);
+            margin-top: 100px;
+            height: 400px;
+            box-shadow: 5px 5px 50px #25a7be;
+        }
+
+        input {
+            width: 70px;
+            height: 70px;
+            border-radius: 5px;
+            border: none;
+            
+        }
+
+        button {
+            width: 80px;
+            height: 40px;
+            line-height: 30px;
+            color: purple;
+            font-size: 20px;
+            background-image: linear-gradient(to right top, #f6ec07, #f4ed0a, #f2ed0d, #f0ee10, #eeee12);
+            border: none;
+            border-radius: 20px;
+
+        }
+
+        #gcount {
+            width: 500px;
+            border: 1px solid black;
+            margin:auto;
+            margin-top: 0px;
+            background-image: linear-gradient(to right top, #e50f89, #d346ab, #bc65c3, #a37bd1, #8f8dd5, #819cdf, #76aae4, #72b7e6, #60c9f1, #51daf7, #4eebf7, #5ffbf1);
+            border: none;
+            height: 50px;
+            text-align: center;
+            color: whitesmoke;
+            font-size: 20px;
+            font-weight: bolder;
+            border-radius: 5px;
+        }
+
+        .operation {
+            margin-top: 0px;
+            margin-left: 60px;
+            background-image: linear-gradient(to right top, #3ff607, #1d30da, #25a7be, #28a49e, #8b298b);
+
+        }
+
+        .operation div {
+            float: left;
+            margin-top: 180px;
+            /* background-image: linear-gradient(to right top, #3ff607, #1d30da, #25a7be, #28a49e, #8b298b);
+            border-radius: 50px; */
+            background: transparent;
+        }
+
+        .operation div>input,
+        button {
+            margin-bottom: 10px;
+            margin-left: 10px;
+            text-align: center;
+            font-size: 20px;
+            color: white;
+            background-image: linear-gradient(to right top, #e50f89, #d346ab, #bc65c3, #a37bd1, #8f8dd5, #819cdf, #76aae4, #72b7e6, #60c9f1, #51daf7, #4eebf7, #5ffbf1);
+        }
+        #reset{
+            height: 120px;
+            width: 120px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculator_container">
+    
+        <br><br>
+        <div id="gcount"></div>
+        <div class="operation">
+            <div>
+                <input type="number" name="add" id="addtext" value="1"><br>
+                <button type="button" id="addbtn"> + </button>
+            </div>
+            <div>
+                <input type="number" name="sub" id="subtext" value="1"><br>
+                <button type="button" id="subbtn"> - </button>
+            </div>
+
+            <div>
+                <input type="number" name="mul" id="multext" value="1"><br>
+                <button type="button" id="mulbtn"> X </button>
+            </div>
+
+            <div>
+                <input type="number" name="add" id="divtext" value="1"><br>
+                <button type="button" id="divbtn"> / </button>
+            </div>
+            <div>
+             
+                <button type="button" id="reset"> R E S E T</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+
+        var counter = (function () {
+            var count = 1;
+            function addition(a) {
+                count = count + a;
+                return count;
+            }
+            function subtraction(b) {
+                count = count - b;
+                return count;
+            }
+            function multiplication(c) {
+                count = count * c;
+                return count;
+            }
+            function division(d) {
+                count = count / d;
+                return count;
+            }
+            function value() {
+                return count;
+            }
+            return { addition, subtraction, multiplication, division, value }
+        })()
+
+        var btn1 = document.getElementById("addbtn")
+        var btn2 = document.getElementById("subbtn")
+        var btn3 = document.getElementById("mulbtn")
+        var btn4 = document.getElementById("divbtn")
+        var btn5 = document.getElementById("reset")
+
+        function add() {
+            var num = Number(document.getElementById("addtext").value);
+            counter.addition(num)
+            console.log(counter.value())
+            var display = counter.value();
+            displayValue(display)
+        }
+
+        function sub() {
+
+            var num = Number(document.getElementById("subtext").value);
+            counter.subtraction(num)
+            console.log(counter.value())
+            var display = counter.value();
+            displayValue(display)
+
+        }
+
+        function mul() {
+            var num = Number(document.getElementById("multext").value);
+            counter.multiplication(num)
+            console.log(counter.value())
+            var display = counter.value();
+            displayValue(display)
+        }
+
+        function div() {
+            var num = Number(document.getElementById("divtext").value);
+            counter.division(num)
+            console.log(counter.value())
+            var display = counter.value();
+            displayValue(display)
+        }
+
+        function displayValue(display) {
+            var body = document.querySelector("#gcount")
+            body.textContent = display;
+        }
+
+        function resetValue()
+        {
+            document.getElementById("addtext").value = 1;
+            document.getElementById("subtext").value = 1;
+            document.getElementById("multext").value = 1;
+            document.getElementById("divtext").value = 1;
+            document.querySelector("#gcount").textContent = 0;
+            console.log("inside reset")
+        }
+
+        btn1.addEventListener("click", add)
+        btn2.addEventListener("click", sub)
+        btn3.addEventListener("click", mul)
+        btn4.addEventListener("click", div)
+        btn5.addEventListener("click", resetValue)
+
+    </script>
+</body>
+
+</html>
